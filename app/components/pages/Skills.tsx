@@ -29,18 +29,20 @@ const Skills: React.FC = () => {
                 </div>
                 
                 <div className="skills-progress-container">
-                    <div className="skills-progress">
-                        <div className="progress-arrow ideation">
-                            <LuLightbulb className="progress-icon" />
-                            <span>Ideation</span>
-                        </div>
-                        <div className="progress-arrow design">
-                            <MdOutlineDesignServices className="progress-icon" />
-                            <span>Design</span>
-                        </div>
-                        <div className="progress-arrow development">
-                            <FaLaptopCode className="progress-icon" />
-                            <span>Development</span>
+                    <div className="skills-progress-wrapper">
+                        <div className="skills-progress">
+                            <div className="progress-arrow ideation">
+                                <LuLightbulb className="progress-icon" />
+                                <span>Ideation</span>
+                            </div>
+                            <div className="progress-arrow design">
+                                <MdOutlineDesignServices className="progress-icon" />
+                                <span>Design</span>
+                            </div>
+                            <div className="progress-arrow development">
+                                <FaLaptopCode className="progress-icon" />
+                                <span>Development</span>
+                            </div>
                         </div>
                     </div>
                     
@@ -72,40 +74,57 @@ const Skills: React.FC = () => {
                     </div>
                     <div className="skills-tools">
                         <span className="skills-tool">
-                            <SvgIcon name="miro" className="skills-tool-icon" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="miro" className="skills-tool-icon" />
+                            </div>
                             <span>Miro</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="userinterviews" className="skills-tool-icon logo-bg" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="userinterviews" className="skills-tool-icon logo-bg" />
+                            </div>
                             <span>User Interviews</span>
                         </span>
                         <span className="skills-tool">
-                            {/* Using our custom SVG component for FigJam */}
-                            <SvgIcon name="hotjar" className="skills-tool-icon" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="hotjar" className="skills-tool-icon" />
+                            </div>
                             <span>HotJar</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="figma" className="skills-tool-icon" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="figma" className="skills-tool-icon" />
+                            </div>
                             <span>FigJam</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="surveymonkey" className="skills-tool-icon" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="surveymonkey" className="skills-tool-icon" />
+                            </div>
                             <span>Survey Monkey</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="mixpanel" className="skills-tool-icon" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="mixpanel" className="skills-tool-icon" />
+                            </div>
                             <span>Mixpanel</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="usertesting" className="skills-tool-icon" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="usertesting" className="skills-tool-icon" />
+                            </div>
                             <span>User Testing</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="qualtrics" className="skills-tool-icon logo-wide" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="qualtrics" className="skills-tool-icon logo-wide" />
+                            </div>
                             <span>Qualtrics</span>
                         </span>
                         <span className="skills-tool">
-                            <SvgIcon name="uxmetrics" className="skills-tool-icon logo-wide" />
+                            <div className="svg-wrapper">
+                                <SvgIcon name="uxmetrics" className="skills-tool-icon logo-wide" />
+                            </div>
                             <span>UX Metrics</span>
                         </span>
                     </div>

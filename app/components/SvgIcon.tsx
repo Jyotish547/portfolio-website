@@ -15,13 +15,21 @@ const SvgIcon: React.FC<SvgIconProps> = ({
 }) => {
   return (
     <div className={`svg-icon ${className}`}>
-      <img 
-        src={`/svg/tools/${name}.svg`} 
-        alt={name} 
-        width={width} 
-        height={height} 
-        style={{ display: 'inline-block' }}
-      />
+      <div className="svg-wrapper">
+        <img 
+          src={`/svg/tools/${name}.svg`} 
+          alt={name} 
+          width={width} 
+          height={height} 
+          className="svg-illustration-icon"
+          style={{ 
+            display: 'inline-block',
+            imageRendering: '-webkit-optimize-contrast',
+            transform: 'translateZ(0)',
+            backfaceVisibility: 'hidden'
+          }}
+        />
+      </div>
     </div>
   );
 };

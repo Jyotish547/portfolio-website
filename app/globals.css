@@ -67,10 +67,6 @@ html, body {
   font-family: var(--font-roboto-slab);
 }
 
-.testing {
-  color: var(--color-orange);
-}
-
 @layer components {
   .hero-section {
     @apply w-full min-h-[600px] flex items-center justify-center;
@@ -97,7 +93,7 @@ html, body {
 
   /* Section containers */
   .hero-container {
-    @apply w-full max-w-[1280px] p-10 flex flex-col items-start;
+    @apply w-full max-w-[1280px] p-10 flex flex-row items-center justify-between;
   }
 
   .section-container {
@@ -107,6 +103,28 @@ html, body {
   /* Hero section */
   .hero-content {
     @apply text-5xl md:text-5xl flex flex-col items-start gap-4 md:gap-8 xl:gap-10;
+  }
+  
+  .hero-svg-container {
+    @apply w-full flex justify-center items-center mb-4;
+  }
+  
+  .hero-illustration-container {
+    @apply w-full flex justify-center items-center;
+    position: relative;
+  }
+  
+  .svg-wrapper {
+    position: relative;
+    overflow: visible;
+    will-change: transform;
+  }
+  
+  .svg-illustration {
+    position: relative;
+    will-change: transform;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 
   .hero-title {
@@ -171,6 +189,16 @@ html, body {
     @apply w-full flex flex-col items-center gap-8;
   }
 
+  .skills-progress-wrapper {
+    @apply w-full flex justify-center;
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: relative;
+    overflow: visible;
+  }
+
   .skills-progress span {
     @apply text-lg xl:text-xl;
     color: var(--fb-primary);
@@ -180,24 +208,34 @@ html, body {
   .skills-progress {
     @apply flex w-full max-w-[1200px] relative;
     height: 60px;
+    transform: translateZ(0);
+    will-change: transform;
+    -webkit-font-smoothing: antialiased;
   }
   
   .progress-arrow {
     @apply flex items-center justify-center gap-2 relative h-full flex-1;
     color: var(--fb-primary);
     transition: all 0.3s ease;
+    transform: translateZ(0);
+    will-change: transform;
+    overflow: visible;
+    position: relative;
   }
   
   .progress-arrow::after {
     content: '';
     position: absolute;
-    right: -20px;
+    right: -19px; /* Adjusted to overlap slightly */
     top: 0;
     width: 0;
     height: 0;
     border-top: 30px solid transparent;
     border-bottom: 30px solid transparent;
-    z-index: 2;
+    z-index: 3; /* Higher z-index to ensure arrow is visible */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    pointer-events: none; /* Allow clicks to pass through */
   }
   
   .progress-arrow::before {
@@ -207,6 +245,21 @@ html, body {
     top: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Specific z-index values for each arrow to ensure proper layering */
+  .progress-arrow.ideation {
+    z-index: 3;
+  }
+  
+  .progress-arrow.design {
+    z-index: 2;
+  }
+  
+  .progress-arrow.development {
     z-index: 1;
   }
   
@@ -236,7 +289,14 @@ html, body {
   
   .progress-icon {
     @apply text-xl;
-    z-index: 2;
+    z-index: 4; /* Higher than the arrow's z-index */
+    position: relative;
+  }
+  
+  /* Ensure text content is above background */
+  .progress-arrow span {
+    position: relative;
+    z-index: 4; /* Higher than the arrow's z-index */
   }
   
   .skills-description {
@@ -308,10 +368,20 @@ html, body {
   /* Style for SVG icons to match React Icons */
   .svg-icon {
     @apply flex items-center justify-center;
+    position: relative;
+    will-change: transform;
   }
   
   .svg-icon img {
     @apply w-12 h-12;
+    position: relative;
+  }
+  
+  .svg-illustration-icon {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   /* Experience section */
@@ -548,5 +618,67 @@ html, body {
   }
 }
 
- 
+/* SVG rendering fixes for different screen resolutions */
+svg {
+  /* Force pixel snapping */
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
 
+/* Fix for white line cracks in SVG illustrations */
+svg path {
+  shape-rendering: geometricPrecision;
+  vector-effect: non-scaling-stroke;
+}
+
+/* Force hardware acceleration for smoother rendering */
+.svg-illustration *, .svg-icon * {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0) scale(1.0, 1.0);
+  transform: translateZ(0) scale(1.0, 1.0);
+}
+
+/* Skills section specific fixes */
+.skills-tool-icon {
+  position: relative;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.skills-tool {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Fix for white lines in progress arrows */
+.skills-progress {
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.05);
+  margin: 0 1px; /* Add 1px margin to prevent edge rendering issues */
+}
+
+/* Remove margin adjustments as they interfere with z-index layering */
+.progress-arrow {
+  position: relative; /* Ensure position context for z-index */
+}
+
+/* Fix for Safari and Chrome rendering differences */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .progress-arrow::after {
+    right: -20px; /* Slight adjustment for WebKit browsers */
+  }
+}
+
+/* Fix for Safari browser */
+@media not all and (min-resolution:.001dpcm) { 
+  @supports (-webkit-appearance:none) {
+    .svg-illustration, .svg-illustration-icon {
+      transform: translateX(0.5px);
+    }
+    
+    .skills-tool-icon.logo-bg, .skills-tool-icon.logo-wide {
+      transform: translateZ(0);
+      image-rendering: -webkit-optimize-contrast;
+    }
+  }
+}
